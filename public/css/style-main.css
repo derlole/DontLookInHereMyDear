@@ -1,0 +1,68 @@
+    :root {
+        --bg-color: #0a0a0a;
+        --accent-primary: #ff2e88;
+        --accent-secondary: #00ff9f;
+        --text-color: #eaeaea;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        width: 1920px;
+        height: 1080px;
+        background: var(--bg-color);
+        overflow: hidden;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 🕒 Uhr oben rechts */
+    .clock {
+        position: absolute;
+        top: 40px;
+        right: 60px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 42px;
+        color: var(--accent-secondary);
+    }
+
+    /* 🌤️ Wetter unter Uhr */
+    .weather {
+        position: absolute;
+        top: 100px;
+        right: 60px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 28px;
+        color: var(--text-color);
+        text-align: right;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .heart::before {
+        content: "❤️";
+        font-size: 400px;
+    }
+
+    .text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 48px;
+        color: var(--text-color);
+        letter-spacing: 2px;
+    }
+
+    .accent {
+        color: var(--accent-secondary);
+    }

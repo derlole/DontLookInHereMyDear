@@ -14,7 +14,7 @@ function getWeatherInfo(code) {
     };
 }
 
-/* 🌤️ WEATHER (Open-Meteo, kein API-Key nötig!) */
+
 async function loadWeather() {
     fetch("/weather")
         .then(res => res.json())
@@ -27,7 +27,7 @@ async function loadWeather() {
             const info = getWeatherInfo(weather.weathercode);
 
             document.getElementById("weather").innerHTML =
-                `${info.icon} ${info.text}<br>Temp: ${temp}°C · ${wind} km/h`;
+                `${info.icon} ${info.text}<br>Temp: ${temp}°C · Wind: ${wind} km/h`;
         })
         .catch(err => {
             document.getElementById("weather").innerText = "Weather error";

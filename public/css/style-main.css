@@ -45,15 +45,29 @@
 
     .container {
         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .top-section {
+        display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         gap: 40px;
     }
 
+    .bottom-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .left-section {
-        width: 200px;
-        height: 300px;
+        width: 150px;
+        height: 200px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -86,6 +100,14 @@
         letter-spacing: 2px;
         text-align: center;
         word-wrap: break-word;
+    }
+
+    .small-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        color: var(--text-color);
+        text-align: center;
+        letter-spacing: 1px;
     }
 
     .side-image {

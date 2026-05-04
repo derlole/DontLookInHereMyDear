@@ -30,7 +30,6 @@ io.on('connection', (socket) => {
     });
 });
 
-
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`[STATUS--] Frontend server running at http://localhost:${PORT}`);
 });

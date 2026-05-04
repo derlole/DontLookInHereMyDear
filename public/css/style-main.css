@@ -45,10 +45,28 @@
 
     .container {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
         gap: 40px;
+    }
+
+    .left-section {
+        width: 200px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .right-section {
+        width: 200px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
     }
 
     .heart {
@@ -58,6 +76,7 @@
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
+        flex-shrink: 0;
     }
 
     .text {
@@ -65,6 +84,14 @@
         font-size: 30px;
         color: var(--text-color);
         letter-spacing: 2px;
+        text-align: center;
+        word-wrap: break-word;
+    }
+
+    .side-image {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
     }
 
     .accent {

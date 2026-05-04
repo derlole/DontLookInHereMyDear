@@ -6,7 +6,7 @@ const { Server } = require('socket.io');
 const mainSocketHandler = require('./server/sockets/main')
 
 const app = express();
-const PORT = 3033;
+const PORT = 8030;
 const server = http.createServer(app);      
 const io = new Server(server);  
 

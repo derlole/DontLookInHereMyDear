@@ -36,6 +36,7 @@ async function loadWeather() {
 }
 
 loadWeather();
+setInterval(loadWeather, 600000);
 
 function getKW(date) {
   const temp = new Date(date.getTime());
@@ -44,7 +45,6 @@ function getKW(date) {
   const week1 = new Date(temp.getFullYear(), 0, 4);
   return 1 + Math.round(((temp - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
 }
-setInterval(loadWeather, 600000);
 
 function updateDateAndDay() {
     const now = new Date();
@@ -64,3 +64,19 @@ function updateDateAndDay() {
 }
 
 updateDateAndDay();
+
+function scheduleMidnightUpdate() {
+  const now = new Date();
+
+  const nextMidnight = new Date();
+  nextMidnight.setHours(24, 0, 0, 0); 
+
+  const msUntilMidnight = nextMidnight - now;
+
+  setTimeout(() => {
+    updateDateAndDay();
+    scheduleMidnightUpdate(); 
+  }, msUntilMidnight + 100);
+}
+
+scheduleMidnightUpdate();

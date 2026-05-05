@@ -19,6 +19,7 @@ export default function App() {
 
   useEffect(() => {
     loadTodos();
+    flushApiQueue();
   }, []);
 
   const loadTodos = async () => {
@@ -120,7 +121,91 @@ export default function App() {
     sendToAPI('delete', { id });
   };
 
+  const QUEUE_KEY = 'apiQueue';
   const API_BASE_URL = 'https://vs-api.lires.de/api';
+
+  const getQueue = async () => {
+    try {
+      const raw = await AsyncStorage.getItem(QUEUE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (error) {
+      console.error('API Queue read error:', error);
+      return [];
+    }
+  };
+
+  const saveQueue = async (queue) => {
+    try {
+      await AsyncStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
+    } catch (error) {
+      console.error('API Queue save error:', error);
+    }
+  };
+
+  const isApiReachable = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/todos`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      return response.ok;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const sendRequest = async (action, todo) => {
+    const url =
+      action === 'add'
+        ? `${API_BASE_URL}/todos`
+        : `${API_BASE_URL}/todos/${todo.id}`;
+
+    const method = action === 'add' ? 'POST' : action === 'update' ? 'PUT' : 'DELETE';
+
+    const options = {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: action === 'delete' ? undefined : JSON.stringify(todo),
+    };
+
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `API request failed (${response.status})`);
+    }
+    return response.status === 204 ? null : response.json();
+  };
+
+  const enqueueApiCall = async (action, todo) => {
+    const queue = await getQueue();
+    queue.push({ action, todo });
+    await saveQueue(queue);
+    console.log('[API Queue] queued', action, todo.id);
+  };
+
+  const flushApiQueue = async () => {
+    const queue = await getQueue();
+    if (!queue.length) return;
+
+    const reachable = await isApiReachable();
+    if (!reachable) {
+      console.log('[API Queue] API nicht erreichbar, warte...');
+      return;
+    }
+
+    const remaining = [];
+    for (const item of queue) {
+      try {
+        await sendRequest(item.action, item.todo);
+        console.log('[API Queue] executed', item.action, item.todo.id);
+      } catch (error) {
+        console.error('[API Queue] execute error:', error);
+        remaining.push(item);
+      }
+    }
+
+    await saveQueue(remaining);
+  };
 
   // Platzhalter für API-Aufrufe
   const sendToAPI = (action, todo) => {
@@ -137,16 +222,21 @@ export default function App() {
       body: action === 'delete' ? undefined : JSON.stringify(todo),
     };
 
-    fetch(url, options)
-      .then(async (response) => {
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText || 'API request failed');
-        }
-        return response.status === 204 ? null : response.json();
-      })
-      .then((data) => console.log('API response:', data))
-      .catch((error) => console.error('API error:', error));
+    (async () => {
+      const reachable = await isApiReachable();
+      if (!reachable) {
+        await enqueueApiCall(action, todo);
+        return;
+      }
+
+      try {
+        await sendRequest(action, todo);
+        await flushApiQueue();
+      } catch (error) {
+        console.error('API error:', error);
+        await enqueueApiCall(action, todo);
+      }
+    })();
 
     console.log(`API Call: ${action}`, url, todo);
   };

@@ -120,7 +120,7 @@ export default function App() {
     sendToAPI('delete', { id });
   };
 
-  const API_BASE_URL = 'http://192.168.178.22:8030/api';
+  const API_BASE_URL = 'https://vs-api.lires.de/api';
 
   // Platzhalter für API-Aufrufe
   const sendToAPI = (action, todo) => {

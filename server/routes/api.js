@@ -38,12 +38,14 @@ module.exports = (io) => {
 
   router.get('/todos', (req, res) => {
     const todos = readTodos();
+    console.log(`[API] GET /todos - ${todos.length} Todos geladen`);
     res.json(todos);
   });
 
   router.post('/todos', (req, res) => {
     const { text, persistent = false, completed = false, id } = req.body;
     if (!text || typeof text !== 'string') {
+      console.log(`[API] POST /todos - Fehler: Text erforderlich`);
       return res.status(400).json({ error: 'Todo text is required' });
     }
 
@@ -58,6 +60,8 @@ module.exports = (io) => {
     const todos = readTodos();
     todos.push(todo);
     writeTodos(todos);
+
+    console.log(`[API] POST /todos - Neues Todo hinzugefügt: "${todo.text}" (ID: ${todo.id})`);
 
     io.emit('todos:changed', {
       action: 'add',
@@ -75,6 +79,7 @@ module.exports = (io) => {
     const index = todos.findIndex((item) => item.id === id);
 
     if (index === -1) {
+      console.log(`[API] PUT /todos/${id} - Fehler: Todo nicht gefunden`);
       return res.status(404).json({ error: 'Todo not found' });
     }
 
@@ -89,6 +94,8 @@ module.exports = (io) => {
     todos[index] = updatedTodo;
     writeTodos(todos);
 
+    console.log(`[API] PUT /todos/${id} - Todo aktualisiert: "${updatedTodo.text}"`);
+
     io.emit('todos:changed', {
       action: 'update',
       todo: updatedTodo,
@@ -101,14 +108,18 @@ module.exports = (io) => {
   router.delete('/todos/:id', (req, res) => {
     const { id } = req.params;
     const todos = readTodos();
+    const todoToDelete = todos.find((item) => item.id === id);
     const exists = todos.some((item) => item.id === id);
 
     if (!exists) {
+      console.log(`[API] DELETE /todos/${id} - Fehler: Todo nicht gefunden`);
       return res.status(404).json({ error: 'Todo not found' });
     }
 
     const remaining = todos.filter((item) => item.id !== id);
     writeTodos(remaining);
+
+    console.log(`[API] DELETE /todos/${id} - Todo gelöscht: "${todoToDelete.text}"`);
 
     io.emit('todos:changed', {
       action: 'delete',

@@ -110,6 +110,23 @@ body {
     letter-spacing: 1px;
 }
 
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+}
+
+.pin-icon {
+    font-size: 16px;
+}
+
+.todo-text {
+    color: inherit;
+}
+
 .side-image {
     width: 200px;
     height: 300px;

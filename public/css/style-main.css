@@ -1,121 +1,141 @@
-    :root {
-        --bg-color: #0a0a0a;
-        --accent-primary: #ff2e88;
-        --accent-secondary: #00ff9f;
-        --text-color: #eaeaea;
-    }
+:root {
+    --bg-color: #0a0a0a;
+    --accent-primary: #ff2e88;
+    --accent-secondary: #00ff9f;
+    --text-color: #eaeaea;
+}
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    body {
-        width: 800px;
-        height: 480px;
-        background: var(--bg-color);
-        overflow: hidden;
+body {
+    width: 800px;
+    height: 480px;
+    background: var(--bg-color);
+    overflow: hidden;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    /* 🕒 Uhr oben rechts */
-    .clock {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 24px;
-        color: var(--accent-secondary);
-    }
+/* 🕒 Uhr oben rechts */
+.clock {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--accent-secondary);
+}
 
-    /* 🌤️ Wetter unter Uhr */
-    .weather {
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 16px;
-        color: var(--text-color);
-        text-align: right;
-    }
+/* 🌤️ Wetter unter Uhr */
+.weather {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    color: var(--text-color);
+    text-align: right;
+}
 
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-    }
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
 
-    .top-section {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-    }
+.top-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
-    .bottom-section {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.bottom-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .left-section {
-        width: 150px;
-        height: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-shrink: 0;
-    }
+.left-section {
+    width: 200px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
 
-    .right-section {
-        width: 200px;
-        height: 300px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-shrink: 0;
-    }
+.right-section {
+    width: 200px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
 
-    .heart {
-        width: 300px;
-        height: 300px;
-        background-image: url("/img/heart.png");
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        flex-shrink: 0;
-    }
+.heart {
+    width: 300px;
+    height: 300px;
+    background-image: url("/img/heart.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+}
 
-    .text {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 30px;
-        color: var(--text-color);
-        letter-spacing: 2px;
-        text-align: center;
-        word-wrap: break-word;
-    }
+.text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 30px;
+    color: var(--text-color);
+    letter-spacing: 2px;
+    text-align: center;
+    word-wrap: break-word;
+}
 
-    .small-text {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 14px;
-        color: var(--text-color);
-        text-align: center;
-        letter-spacing: 1px;
-    }
+.small-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--text-color);
+    text-align: center;
+    letter-spacing: 1px;
+}
 
-    .side-image {
-        width: 200px;
-        height: 200px;
-        object-fit: contain;
-    }
+.side-image {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
 
-    .accent {
-        color: var(--accent-secondary);
-    }
+.accent {
+    color: var(--accent-secondary);
+}
+
+#date-display {
+    position: absolute; 
+    top: 20px; 
+    left: 20px; 
+    font-family: 'JetBrains Mono', monospace; 
+    font-size: 24px; 
+    color: var(--accent-secondary);
+}
+
+#day-info {
+    position: absolute; 
+    top: 60px; 
+    left: 20px; 
+    font-family: 'JetBrains Mono', monospace; 
+    font-size: 16px; 
+    color: var(--text-color); 
+    text-align: left; 
+    max-width: 500px;
+}

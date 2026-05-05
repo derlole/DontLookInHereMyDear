@@ -37,4 +37,30 @@ async function loadWeather() {
 
 loadWeather();
 
+function getKW(date) {
+  const temp = new Date(date.getTime());
+  temp.setHours(0,0,0,0);
+  temp.setDate(temp.getDate() + 3 - (temp.getDay() + 6) % 7);
+  const week1 = new Date(temp.getFullYear(), 0, 4);
+  return 1 + Math.round(((temp - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+}
 setInterval(loadWeather, 600000);
+
+function updateDateAndDay() {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const kw = getKW(now);
+    const weekday = now.toLocaleDateString("de-DE", { weekday: "long" });
+    const dateStr = `${day}-${month}-${year} | ${weekday} | KW${kw}`;
+    document.getElementById("date-display").innerText = dateStr;
+
+    const key = `${month}-${day}`;
+    const dayText = days[key] || "";
+    const parts = dayText.split('\n');
+    const formattedText = parts.length > 1 ? `<span class="accent">${parts[0]}</span><br>${parts.slice(1).join('<br>')}` : dayText;
+    document.getElementById("day-info").innerHTML = formattedText;
+}
+
+updateDateAndDay();

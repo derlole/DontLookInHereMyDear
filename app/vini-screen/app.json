@@ -2,28 +2,34 @@
   "expo": {
     "name": "vini-screen",
     "slug": "vini-screen",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/heart.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/heart.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/heart.png",
+        "backgroundColor": "#000000"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.derlole.viniscreen"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/heart.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5fae9016-f581-4f19-b0e1-4529c1f1a98b"
+      }
     }
   }
 }

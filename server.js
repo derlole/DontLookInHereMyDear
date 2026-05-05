@@ -18,15 +18,16 @@ app.set('view engine', 'ejs');
 app.set('layout', './layouts/main');
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/api', require('./server/routes/api')(io));
 app.use('/', require('./server/routes/main')(io));
 
 io.on('connection', (socket) => {
     console.log(`[SOCKETIO] Client verbunden: ${socket.id}`);
     
     mainSocketHandler(io, socket);
-    io.emit("lifecycle", {lfc: global.lifecycle})
+    io.emit("lifecycle", {lfc: global.lifecycle});
     socket.on('disconnect', () => {
-    console.log(`[SOCKETIO] Client getrennt: ${socket.id}`);
+      console.log(`[SOCKETIO] Client getrennt: ${socket.id}`);
     });
 });
 

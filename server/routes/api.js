@@ -26,7 +26,36 @@ const readTodos = () => {
     return [];
   }
 };
+const cleanupNonPersistentTodos = () => {
+  const todos = readTodos();
 
+  const remaining = todos.filter((todo) => todo.persistent);
+
+  // Nur speichern wenn sich etwas geändert hat
+  if (remaining.length !== todos.length) {
+    writeTodos(remaining);
+
+    console.log(
+      `[CLEANUP] ${todos.length - remaining.length} nicht persistente Todos gelöscht`
+    );
+
+    io.emit('todos:changed', {
+      action: 'cleanup',
+      todos: remaining,
+    });
+  }
+};
+function scheduleMidnightDelete(){
+  const now = new Date();
+  const nextMidnight = new Date();
+  nextMidnight.setHours(24, 0, 0, 0);
+  const ms = nextMidnight - now
+
+  setTimeout(() => {
+    cleanupNonPersistentTodos();
+    scheduleMidnightDelete();
+  }, ms)
+}
 const writeTodos = (todos) => {
   ensureStorage();
   fs.writeFileSync(dataFile, JSON.stringify(todos, null, 2), 'utf8');

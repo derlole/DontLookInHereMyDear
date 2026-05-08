@@ -108,6 +108,8 @@ body {
     color: var(--text-color);
     text-align: center;
     letter-spacing: 1px;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 .todo-item {

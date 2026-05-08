@@ -6,6 +6,11 @@ module.exports = (io) => {
     router.get('/', (req, res) => {
         res.render('index')
     })
+    
+    router.get('/set-text', (req, res) => {
+        res.render('set-text')
+    })
+    
     router.get("/weather", async (req, res) => {
         try {
             const lat = 50.04;

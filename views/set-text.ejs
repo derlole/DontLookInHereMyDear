@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/css/style-set-text.css">
+<div class="container">
+    <h1>Text und Accents einstellen</h1>
+    
+    <div class="form-group">
+        <label for="textInput">Text eingeben:</label>
+        <textarea id="textInput" placeholder="Geben Sie hier den Text ein, der angezeigt werden soll..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Wörter mit Accent auswählen:</label>
+        <div class="accent-options">
+            <div id="accentWordsList"></div>
+            <div id="noWordsMessage" style="color: #999;">Geben Sie Text ein, um Wörter auszuwählen.</div>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button class="btn-send" id="sendBtn">Absenden</button>
+        <button class="btn-clear" id="clearBtn">Löschen</button>
+    </div>
+
+    <div id="statusMessage" class="status-message"></div>
+</div>
+
+<script src=/js/set-text.js></script>

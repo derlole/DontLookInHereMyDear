@@ -30,6 +30,11 @@ module.exports = (io, socket) => {
         console.log(data);
     });
 
+    socket.on('set-text', (data) => {
+        console.log('[SOCKET] Text empfangen:', data);
+        io.emit('text-update', data);
+    });
+
     socket.on('request:todos', () => {
         const todos = readTodos();
         socket.emit('todos:init', todos);

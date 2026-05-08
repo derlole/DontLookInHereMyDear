@@ -1,10 +1,33 @@
 
+const fs = require('fs');
+const path = require('path');
+
 module.exports = (io) => {
     const express = require('express');
     const router = express.Router();
 
+    const getDailyImage = () => {
+        try {
+            const imageDir = path.join(__dirname, '..', '..', 'public', 'img', 'lolms');
+            const files = fs.readdirSync(imageDir);
+            const images = files.filter(file => /\.(png|jpe?g|gif|webp)$/i.test(file));
+
+            if (!images.length) {
+                return '/img/harfenolm.png';
+            }
+
+            const today = new Date();
+            const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+            const index = seed % images.length;
+            return `/img/lolms/${images[index]}`;
+        } catch (error) {
+            console.error('[ROUTE] Fehler beim Laden des täglichen Bildes:', error);
+            return '/img/harfenolm.png';
+        }
+    };
+
     router.get('/', (req, res) => {
-        res.render('index')
+        res.render('index', { dailyImage: getDailyImage() });
     })
     
     router.get('/set-text', (req, res) => {
